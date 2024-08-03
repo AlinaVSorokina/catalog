@@ -6,9 +6,10 @@ Dieser Dienst (Calculator service) ermöglicht es dem Benutzer, eine Versicherun
 - Fahrzeugtyp
 - Region der Fahrzeugzulassung
 
-#API:
-Derzeit bietet der Berechnungsdienst einen Endpoint an: 
+**API:**
 
+Derzeit bietet der Berechnungsdienst einen Endpoint an: 
+```
 method: GET
 url: "/premium"
 header: clientId - obligatorische header. Die ID des Kunden
@@ -18,15 +19,26 @@ payload:
     "postleitzahl": "52066", - obligatorisch string
     "fahrzeugtyp": "PKW" - einer der beiden Werte PKW oder LKW
 }
+```
 	
 Response: 
+```
 status: 200
 {
     "clientId": "test-client",
     "premium": "150.00"
 }
+```
 
-#Deployment:
+Error-codes:
+```
+status 400: Validierungsfehler in Header oder Payload
+status 500: In allen Fällen, in denen es nicht möglich war, die Prämie zu berechnen
+status 404: Wenn die Region nicht über die Postleitzahl gefunden werden konnte
+```
+
+**Deployment:**
+
 Um den Dienst zu starten, müssen drei Teile gestartet werden:
 1. discovery Service 
 2. catalog Service (defaut port: 9090)
